@@ -69,7 +69,7 @@ export default defineComponent({
       const yAxis = axisLeft(yScale.value)
 
       // Render axis
-      d3axis.attr('transform', 'translate(50, 10)').call(yAxis)
+      d3axis.attr('transform', 'translate(50, 0)').call(yAxis)
     }))
 
     return {
@@ -84,5 +84,6 @@ export default defineComponent({
 .y-axis-container {
   height: 100%;
   width: 100%;
+  margin-left: -50px;
 }
 </style>

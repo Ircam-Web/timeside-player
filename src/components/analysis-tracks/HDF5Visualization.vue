@@ -20,6 +20,13 @@
         :stop="stop"
       />
     </template>
+    <template v-else-if="hdf5.time_mode === 'segment'">
+      <SegmentVisualization
+        :hdf5="hdf5"
+        :start="start"
+        :stop="stop"
+      />
+    </template>
     <template v-else-if="hdf5.time_mode === 'global'">
       <div>
         {{ hdf5.id_metadata.name }} = {{ hdf5.data_object.value.numpyArray[0] }} {{ hdf5.id_metadata.unit }}
@@ -45,6 +52,7 @@ import {
 import { HDF5, basePath } from '@/utils/api'
 import FramewiseVisualization from '@/components/analysis-tracks/FramewiseVisualization.vue'
 import EventVisualization from './EventVisualization.vue'
+import SegmentVisualization from './SegmentVisualization.vue'
 
 import { formatResponseError } from '@/utils/response-error'
 
@@ -65,7 +73,8 @@ export default defineComponent({
   },
   components: {
     FramewiseVisualization,
-    EventVisualization
+    EventVisualization,
+    SegmentVisualization
   },
   setup (props) {
     const loading = ref(true)
