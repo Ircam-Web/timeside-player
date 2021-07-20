@@ -110,9 +110,6 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.selection-tracks {
-  margin-left: 50px;
-}
 .tracks {
   position: relative;
 }

@@ -57,6 +57,7 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin-left: 50px;
 }
 
 #app ::v-deep {

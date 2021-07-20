@@ -3,80 +3,45 @@
     ref="el"
     class="player"
   >
-    <Audio :audio-srcs="audioSrcs" />
+    <div class="first-line">
+      <span class="title">{{ item.title }}</span>
+      <Audio :audio-srcs="audioSrcs" />
+    </div>
     <div v-if="audioReady">
       <!--
         These components need audio to be loaded because
         they need audio's duration to compute position
       -->
-      <div class="line">
-        <div class="item-info">
-          <div class="title-container">
-            <span class="title">{{ item.title }}</span>
-          </div>
-        </div>
-        <div>
-          <Controls />
-          <Timer class="timer" />
-        </div>
-      </div>
       <MainTrack
         class="main-track"
         :item-id="item.uuid"
         :selection="selection"
         @selection="onSelection"
       />
+      <div>
+        <Timer class="timer" />
+      </div>
       <div class="menu">
         <div class="line">
-          <div class="tabs">
-            <button :class="[ 'tab', { 'active': currentTab === Tab.Info } ]" @click="setTab(Tab.Info)">
-              Information
-            </button>
-            <button :class="[ 'tab', { 'active': currentTab === Tab.Analysis } ]" @click="setTab(Tab.Analysis)">
-              Annotations / Analysis
-            </button>
-          </div>
-          <div v-if="currentTab === Tab.Analysis" class="actions">
+          <div class="actions">
             <button
               :class="{ 'active': isAnalysisTrackFormOpen }"
               @click="isAnalysisTrackFormOpen = !isAnalysisTrackFormOpen; isAnnotationTrackFormOpen = false"
             >
               <span class="plus-picto">+</span>
-              analysis track
+              Analysis
             </button>
             <button
               :class="{ 'active': isAnnotationTrackFormOpen }"
               @click="isAnnotationTrackFormOpen = !isAnnotationTrackFormOpen; isAnalysisTrackFormOpen = false"
             >
               <span class="plus-picto">+</span>
-              annotation track
+              Annotation
             </button>
           </div>
         </div>
       </div>
-      <div v-if="currentTab === Tab.Info" class="info-tab">
-        <table class="info-table">
-          <tbody>
-            <tr class="uuid">
-              <th>uuid</th>
-              <td>{{ item.uuid }}</td>
-            </tr>
-            <tr class="description">
-              <th>description</th>
-              <td>{{ item.description }}</td>
-            </tr>
-            <tr class="samplerate">
-              <th>sample rate</th>
-              <td>{{ item.samplerate }} Hz</td>
-            </tr>
-            <tr class="duration">
-              <th>audio duration</th>
-              <td>{{ item.audioDuration }} seconds</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else-if="currentTab === Tab.Analysis" class="analysis-tab">
+      <div class="analysis-tab">
         <div v-if="isAnalysisTrackFormOpen" class="create-form-container">
           <CreateAnalysisTrack
             :item-id="item.uuid"
@@ -220,53 +185,46 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.item-info {
-  text-align: left;
 
-  .title-container {
-    .title {
-      font-size: 23px;
-    }
-    .uuid {
-      font-style: italic;
-      font-size: 14px;
-    }
-  }
-
-  .description {
-    color: grey;
-    font-size: 12px;
+.first-line {
+  display: flex;
+  justify-content: space-between;
+  .title {
+    font-size: 18px;
+    text-align: left;
   }
 }
 
+.description {
+  color: grey;
+  font-size: 12px;
+}
+
 .line {
-  display: flex;
   justify-content: space-between;
 }
 
 .timer {
   text-align: right;
+  font-size: 12px;
 }
 
 .menu {
-  background: #606062;
+  background: gainsboro;
 
   button {
-    font-size: 22px;
+    font-size: 16px;
     display: block;
-    background: #606062;
-    color: white;
+    background: gainsboro;
+    color: black;
     border: none;
     cursor: pointer;
-    padding: 12px 30px;
+    padding: 10px 15px;
   }
 }
 
 .tabs {
   display: flex;
-
-  border-top: 5px solid #606062;
-  border-left: 5px solid #606062;
 
   .tab {
     &.active {
@@ -284,20 +242,15 @@ export default defineComponent({
     align-items: center;
 
     &.active {
-      /*
-      font-size: 21px;
-      font-weight: bold;
-      */
-      background-color: #424242;
+      background-color: silver;
     }
 
     & .plus-picto {
-      font-size: 40px;
-      font-weight: bold;
+      font-size: 30px;
+      font-weight: 600;
+      height: 15px;
+      margin-top: -23px;
       margin-right: 5px;
-      display: block;
-      height: 30px;
-      margin-top: -20px;
     }
   }
 }

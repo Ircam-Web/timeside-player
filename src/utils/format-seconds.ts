@@ -8,9 +8,22 @@ export const formatSeconds = (val: number): string => {
   // Takes a number and returns a string with leading 0
   const fixedDigits = (val: number) => val < 10 ? '0' : ''
 
+  if (hours>0) {
+    return [
+      fixedDigits(hours) + hours.toString(),
+      fixedDigits(minutes) + minutes.toString(),
+      fixedDigits(seconds) + seconds.toFixed()
+    ].join(':')
+  }
+
+  if (minutes>0) {
+    return [
+      fixedDigits(minutes) + minutes.toString(),
+      fixedDigits(seconds) + seconds.toFixed()
+    ].join(':')
+  }
+
   return [
-    fixedDigits(hours) + hours.toString(),
-    fixedDigits(minutes) + minutes.toString(),
-    fixedDigits(seconds) + seconds.toFixed(2)
+    fixedDigits(seconds) + seconds.toFixed()
   ].join(':')
 }
